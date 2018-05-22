@@ -1,22 +1,29 @@
 ---
 
-- name: deploy haproxy
+# Setup front-end load balancer tier
+
+- name: setup load-balancer tier
   hosts: frontends
-  gather_facts: false # remove later! speeds up testing
-  become: true
+  become: yes
+  roles:
+    - {name: base, tags: base}
+    - {name: frontend, tags: [lbs, haproxy]}
 
-ADD ROLE INFO
+# Setup application servers tier
 
-- name: deploy tomcat
+- name: setup app tier
   hosts: apps
+  become: yes
   gather_facts: false
-  become: true
+  roles:
+    - {name: base, tags: base}
+    - {name: apps, tags: [apps, tomcat]}
 
-ADD ROLE INFO
+# Setup database tier
 
-- name: deploy postgres
-  hosts: apps
-  gather_facts: false
-  become: true
+- name: setup database tier
+  become: yes
   hosts: appdbs
-
+  roles:
+    - {name: base, tags: base}
+    - {name: db, tags: [dbs, postgres]}
