@@ -13,13 +13,13 @@
 
   - name: create tomcat directory
     file:
-      path: /usr/share/tomcat/webapps/ROOT
+      path: {{ tomcat_root }}
       state: directory
 
-  - name: copy static index.html to tomcat root
+  - name: copy static index.html to {{ tomcat_root }}
     template:
       src: index.html.j2
-      dest: /usr/share/tomcat/webapps/ROOT/index.html
+      dest: {{ tomcat_root }}/index.html
       mode: 0644
 
   - name: start tomcat
