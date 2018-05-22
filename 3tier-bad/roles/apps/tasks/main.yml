@@ -1,0 +1,30 @@
+---
+# tasks file for apps
+#
+  - name: install tomcat on app nodes
+    package:
+      name: tomcat
+      state: latest
+
+  - name: enable tomcat at boot
+    service:
+      name: tomcat
+      enabled: yes
+
+  - name: create tomcat directory
+    file:
+      path: /usr/share/tomcat/webapps/ROOT
+      state: directory
+
+  - name: copy static index.html to tomcat root
+    template:
+      src: index.html.j2
+      dest: /usr/share/tomcat/webapps/ROOT/index.html
+      mode: 0644
+
+  - name: start tomcat
+    service:
+      name: tomcat
+      state: restarted
+
+
