@@ -11,7 +11,7 @@
 - name: Enable Repos
   template:
     src: open_three-tier-app.repo
-    dest: /etc/yum./repos.d/open_three-tier-app.repo
+    dest: /etc/yum.repos.d/open_three-tier-app.repo
     mode: 644
 
 - name: Install Base RPMs

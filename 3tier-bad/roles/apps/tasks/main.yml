@@ -13,13 +13,13 @@
 
   - name: create tomcat directory
     file:
-      path: {{ tomcat_root }}
+      path: "{{ tomcat_root }}"
       state: directory
 
   - name: copy static index.html to {{ tomcat_root }}
     template:
       src: index.html.j2
-      dest: {{ tomcat_root }}/index.html
+      dest: "{{ tomcat_root }}/index.html"
       mode: 0644
 
   - name: start tomcat
